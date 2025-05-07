@@ -1,0 +1,9 @@
+{
+    "estatisticas":[
+        "rx_packets",
+        "tx_packets",
+        "rx_bytes",
+        "tx_bytes",
+        "rx_dropped"
+    ]
+}
