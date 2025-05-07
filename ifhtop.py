@@ -13,7 +13,10 @@ parser.add_argument("-i","--interface", help="Nome da interface", default="")
 parser.add_argument("-c","--config", help="Arquivo de configuração", default="ifparam.json")
 parser.add_argument("-d","--delay", type=int, help="Intervalo de atualização (default=10)", default=10)
 parser.add_argument("-a","--amostras", type=int, help="Número de amostras (1/seg) (default=60)", default=60)
+parser.add_argument("-gr","--grafico-rows", type=int, help="Número linhas do gráfico (default=8)", default=8)
+parser.add_argument("-gcol","--grafico-colunas", type=int, help="Número colunas com gráficos (default=3)", default=3)
 args = parser.parse_args()
+print(args)
 
 unidadesPps = ['pps','Kpps','Mpps','Gpps','Tpps']
 unidadesBps = ['bps','Kbps','Mbps','Gbps','Tbps']
@@ -112,12 +115,8 @@ def main(stdscr : curses.window):
         for nomeGrafico in graficos:
             if usosPorGrafico > 0:
                 if lastRow+usosPorGrafico > max_y:
-                    # try:
-                    #     stdscr.addstr(lastRow,colBase+4,'encerrado por falta de linhas', curses.A_REVERSE)
-                    # except Exception as e:
-                    #     pass
-                    # break
-                    colBase += 2+1+args.amostras + 8
+                    colBase += int(max_x/args.grafico_colunas)
+                    #2+1+args.amostras + 8
                     lastRow = lastRowOnStart
             usosPorGrafico = lastRow
             maxValor = 0
@@ -152,7 +151,7 @@ def main(stdscr : curses.window):
             except Exception as e:
                 pass
             lastRow+=1 # Quebra de linha
-            graphLines = 8
+            graphLines = args.grafico_rows
             
             maxValor=maxValor*1.1 #+10%
             try:
