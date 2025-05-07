@@ -1,10 +1,8 @@
 import argparse
 import curses.textpad
-import ethtool
 import signal
 import time
 import subprocess
-import sys
 import json
 import os.path
 import copy
